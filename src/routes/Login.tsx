@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   IonCard,
   IonCardContent,
@@ -8,21 +6,31 @@ import {
   IonInput,
   IonButton,
   IonIcon,
+  useIonAlert,
+  useIonLoading,
 } from "@ionic/react";
-import { logIn } from 'ionicons/icons'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { logIn } from "ionicons/icons";
 
 function Login() {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [alert] = useIonAlert();
+  const [present, dismiss] = useIonLoading();
 
-  const onSubmit = (event: any) => {
-    setLoading(true);
+  const onSubmit = async (event: any) => {
     event.preventDefault();
+    await present({ message: "Loading..." });
 
     setTimeout(() => {
-      setLoading(false);
-      navigate("/app/dashboard");
+      dismiss();
+      alert({
+        header: "Invalid credentials",
+        message: "There is no user with that name and password combination.",
+        buttons: [{ text: "OK" }],
+      });
     }, 1500);
+    navigate("/app/dashboard");
   };
 
   return (
