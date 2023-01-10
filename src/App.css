@@ -1,5 +1,7 @@
 .App {
-  text-align: center;
+  /* margin: 0, 1rem, 0, 1 rem; */
+  /* padding-top: env(safe-area-inset-top); */
+  /* margin: 1rem; */
 }
 
 .App-logo {
